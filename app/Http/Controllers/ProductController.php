@@ -19,13 +19,17 @@ class ProductController extends Controller
 
         // $this->middleware('auth');
         
-        $this->middleware('auth')->except(['index','show']);
+        // $this->middleware('auth')->except(['index','show']);
     }
 
     public function index()
     {
-        $products = ['Product 01','Product 02','Product 03'];
-        return $products;
+        $teste = 123;
+        $teste2 = 321;
+        $teste3 = [1,2,3,4,5];
+        $products = ['uva','canela','coelho','mac','BK'];
+
+        return view('admin.pages.products.index',compact('teste','teste2','teste3','products'));
     }
 
     public function show($id)
@@ -33,24 +37,25 @@ class ProductController extends Controller
         return "Exibindo o produto por id: {$id}";
     }
 
-    public function create($id)
+    public function create()
     {
-        return "Exibindo o formulario para cadastro do produto";
+        return view('admin.pages.products.create');
     }
 
     public function edit($id)
     {
-        return "Exibindo para editar o produto: {$id}";
+        return view('admin.pages.products.edit', compact('id'));
     }
 
     public function store()
     {
-        return 'Cadastrando um novo produto';
+        dd('Cadastrando');
+        // return 'Cadastrando um novo produto';
     }
 
-    public function update($id)
+    public function update(Request $request,$id)
     {
-        return "Editando o produto : {$id}";
+        dd("Editando o produto {$id}");
     }
 
     public function destroy($id)
