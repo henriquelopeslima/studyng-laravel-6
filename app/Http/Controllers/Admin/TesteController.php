@@ -9,7 +9,7 @@ class TesteController extends Controller
 {
 
     public function teste(){
-        return 'Teste Controller@teste';
+        return 'Teste Controllers';
     }
 
 }
