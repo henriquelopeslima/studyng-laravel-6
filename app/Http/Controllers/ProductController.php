@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -47,10 +48,26 @@ class ProductController extends Controller
         return view('admin.pages.products.edit', compact('id'));
     }
 
-    public function store()
+    public function store(StoreUpdateProductRequest $request)
     {
-        dd('Cadastrando');
-        // return 'Cadastrando um novo produto';
+        dd('ok');
+        // dd($request->all());
+        // dd($request->only('name','description'));
+        // dd($request->name);
+        // dd($request->input('teste','default'));
+        // dd($request->except('_token','name'));
+        
+        // $request->validate([
+        //     'name' => 'required|min:3|max:255',
+        //     'description' => 'nullable|min:3|max:10000',
+        //     'photo' => 'required|image'
+        // ]);
+        
+        if($request->file('photo')->isValid()){
+            // dd($request->file('photo')->store('products'));
+            $nameFile = $request->name . '.' . $request->photo->extension();
+            dd($request->file('photo')->storeAs('products',$nameFile));
+        }
     }
 
     public function update(Request $request,$id)
