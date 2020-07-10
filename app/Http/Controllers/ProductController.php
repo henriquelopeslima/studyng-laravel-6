@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateProductRequest;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -19,18 +20,24 @@ class ProductController extends Controller
         // ]);
 
         // $this->middleware('auth');
-        
+
         // $this->middleware('auth')->except(['index','show']);
     }
 
     public function index()
     {
-        $teste = 123;
-        $teste2 = 321;
-        $teste3 = [1,2,3,4,5];
-        $products = ['uva','canela','coelho','mac','BK'];
+        // $teste = 123;
+        // $teste2 = 321;
+        // $teste3 = [1,2,3,4,5];
+        // $products = ['uva','canela','coelho','mac','BK'];
+        // $products = Product::all();
 
-        return view('admin.pages.products.index',compact('teste','teste2','teste3','products'));
+        $products = Product::latest()->paginate();
+
+        // return view('admin.pages.products.index',compact('teste','teste2','teste3','products'));
+        return view('admin.pages.products.index',[
+            'products' => $products
+        ]);
     }
 
     public function show($id)
@@ -56,13 +63,13 @@ class ProductController extends Controller
         // dd($request->name);
         // dd($request->input('teste','default'));
         // dd($request->except('_token','name'));
-        
+
         // $request->validate([
         //     'name' => 'required|min:3|max:255',
         //     'description' => 'nullable|min:3|max:10000',
         //     'photo' => 'required|image'
         // ]);
-        
+
         if($request->file('photo')->isValid()){
             // dd($request->file('photo')->store('products'));
             $nameFile = $request->name . '.' . $request->photo->extension();
