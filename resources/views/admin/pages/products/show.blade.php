@@ -8,8 +8,8 @@
 <a href="{{route('products.index')}}"><<</a>
 <ul>
     <li><strong>Nome: </strong>{{$product->name}}</li>
-    <li><strong>Nome: </strong>{{$product->price}}</li>
-    <li><strong>Nome: </strong>{{$product->description}}</li>
+    <li><strong>Preço: </strong>{{$product->price}}</li>
+    <li><strong>Detalhes: </strong>{{$product->description}}</li>
 </ul>
 
 @endsection

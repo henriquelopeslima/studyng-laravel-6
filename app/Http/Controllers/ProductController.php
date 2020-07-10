@@ -55,10 +55,11 @@ class ProductController extends Controller
 
     public function store(StoreUpdateProductRequest $request)
     {
-        if($request->file('photo')->isValid()){
-            $nameFile = $request->name . '.' . $request->photo->extension();
-            dd($request->file('photo')->storeAs('products',$nameFile));
-        }
+        $data = $request->only('name', 'description', 'price');
+
+        Product::create($data);
+
+        return redirect()->route('products.index');
     }
 
     public function update(Request $request,$id)

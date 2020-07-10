@@ -1,23 +1,31 @@
 @extends('admin.layouts.app')
 
+@section('title', "Cadastrar novo produto")
+
 @section('content')
-  
-    @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
 
     <h1>Cadastrar novo produto</h1>
-    <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
+
+    @include('admin.includes.alerts')
+
+    <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data" class="form">
         @csrf
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="text" name="name" placeholder="Nome:" value="{{old('name')}}">
-        <input type="text" name="description" placeholder="Descricao:" value="{{old('description')}}">
-        <input type="file" name="photo" id="">
-        <button type="submit">Enviar</button>
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" placeholder="Nome:" value="{{old('name')}}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="description" placeholder="Descricao:" value="{{old('description')}}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="price" placeholder="Preço:" value="{{old('price')}}">
+        </div>
+        <div class="form-group">
+            <input type="file" class="form-control" name="image" id="">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </div>
     </form>
 
 @endsection
