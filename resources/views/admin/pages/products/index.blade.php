@@ -3,11 +3,10 @@
 @section('title','Gestao de produtos')
 
 @section('content')
-    {{-- {{ $teste }}     --}}
 
     <h1>Exibindo os produtos</h1>
 
-    <a href="{{route('products.create')}}" class="btn btn-primary">Cadastrar</a>
+    <a href="{{route('products.create')}}" class="btn btn-primary ">Cadastrar</a>
 
     <hr>
 
@@ -24,7 +23,9 @@
                 <tr>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->price }}</td>
-                    <td><a href="">Detalhes</a></td>
+                    <td>
+                        <a href="{{ route('products.show', $product->id) }}">Detalhes</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

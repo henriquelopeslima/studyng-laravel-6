@@ -26,15 +26,8 @@ class ProductController extends Controller
 
     public function index()
     {
-        // $teste = 123;
-        // $teste2 = 321;
-        // $teste3 = [1,2,3,4,5];
-        // $products = ['uva','canela','coelho','mac','BK'];
-        // $products = Product::all();
-
         $products = Product::latest()->paginate();
 
-        // return view('admin.pages.products.index',compact('teste','teste2','teste3','products'));
         return view('admin.pages.products.index',[
             'products' => $products
         ]);
@@ -42,7 +35,12 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        return "Exibindo o produto por id: {$id}";
+        $product = Product::find($id);
+        if(!$product){
+            return redirect()->back();
+        }
+        return view('admin.pages.products.show',
+            ['product' => $product]);
     }
 
     public function create()
@@ -57,21 +55,7 @@ class ProductController extends Controller
 
     public function store(StoreUpdateProductRequest $request)
     {
-        dd('ok');
-        // dd($request->all());
-        // dd($request->only('name','description'));
-        // dd($request->name);
-        // dd($request->input('teste','default'));
-        // dd($request->except('_token','name'));
-
-        // $request->validate([
-        //     'name' => 'required|min:3|max:255',
-        //     'description' => 'nullable|min:3|max:10000',
-        //     'photo' => 'required|image'
-        // ]);
-
         if($request->file('photo')->isValid()){
-            // dd($request->file('photo')->store('products'));
             $nameFile = $request->name . '.' . $request->photo->extension();
             dd($request->file('photo')->storeAs('products',$nameFile));
         }
