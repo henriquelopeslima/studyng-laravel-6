@@ -10,10 +10,11 @@ class ProductController extends Controller
 {
 
     protected $request;
-
-    public function __construct(Request $request)
+    private $repository;
+    public function __construct(Request $request, Product $product)
     {
         $this->request = $request;
+        $this->repository = $product;
 
         // $this->middleware('auth')->only([
         //     'create','store'
@@ -57,7 +58,7 @@ class ProductController extends Controller
     {
         $data = $request->only('name', 'description', 'price');
 
-        Product::create($data);
+        $this->repository->create($data);
 
         return redirect()->route('products.index');
     }
@@ -69,6 +70,12 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        return "Deletando o produto : {$id}";
+        if(!$product = $this->repository->find($id))
+            return redirect()->back();
+
+        $product->delete();
+
+        return redirect()->route('products.index');
+
     }
 }
