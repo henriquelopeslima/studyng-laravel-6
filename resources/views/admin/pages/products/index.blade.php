@@ -8,6 +8,12 @@
 
     <a href="{{route('products.create')}}" class="btn btn-primary ">Cadastrar</a>
 
+    <form action="{{ route('products.search') }}" method="post" class="form form-inline">
+        @csrf
+        <input type="text" name="filter" id="" placeholder="Filtrar:" class="form form-control" value="{{$filters['filter' ?? '']}}">
+        <button type="submit" class="btn btn-info">Pesquisar</button>
+    </form>
+
     <hr>
 
     <table class="table table-striped">
@@ -31,9 +37,11 @@
             @endforeach
         </tbody>
     </table>
-
-    {!! $products->links() !!}
-
+    @if(isset($filters))
+       {!! $products->appends($filters)->links() !!}
+    @else
+        {!! $products->links() !!}
+    @endif
 @endsection
 
     {{-- @component('admin.components.card')
