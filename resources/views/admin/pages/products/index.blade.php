@@ -10,7 +10,7 @@
 
     <form action="{{ route('products.search') }}" method="post" class="form form-inline">
         @csrf
-        <input type="text" name="filter" id="" placeholder="Filtrar:" class="form form-control" value="{{$filters['filter' ?? '']}}">
+        <input type="text" name="filter" id="" placeholder="Filtrar:" class="form form-control" value="{{$filters['filter' ?? ''] ?? ''}}">
         <button type="submit" class="btn btn-info">Pesquisar</button>
     </form>
 
