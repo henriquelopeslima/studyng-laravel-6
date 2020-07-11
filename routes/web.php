@@ -1,7 +1,7 @@
 <?php
 
 Route::any('products/search', 'ProductController@search')->name('products.search')->middleware('auth');
-Route::resource('products', 'ProductController')->middleware('auth');
+Route::resource('products', 'ProductController')->middleware(['auth','check.is.admin']);
 
 // Route::delete('products/{id}', 'ProductController@destroy')->name('products.destroy');
 // Route::put('products/{id}', 'ProductController@update')->name('products.update');
@@ -114,5 +114,3 @@ Route::get('/', function () {
 });
 
 Auth::routes(['register' => false]);
-
-Route::get('/home', 'HomeController@index')->name('home');
